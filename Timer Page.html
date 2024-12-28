@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lash Lift HQ - Timer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Georgia&family=Brush+Script+MT&display=swap" rel="stylesheet">
+  <style>
+    /* General Body Styling */
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+      color: #333;
+      text-align: center;
+    }
+
+    /* Header Section */
+    header {
+      background-color: white;
+      padding: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      text-align: left;
+    }
+
+    header h1 {
+      font-family: 'Georgia', serif;
+      font-size: 20px;
+      font-style: italic;
+      margin: 0;
+      color: #333;
+    }
+
+    /* Menu Button */
+    .menu-btn {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 8px;
+      cursor: pointer;
+    }
+
+    .menu-btn:hover {
+      background-color: #f0f0f0;
+    }
+
+    /* Submenu Styling */
+    .submenu {
+      display: none;
+      position: absolute;
+      top: 40px;
+      right: 15px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .submenu a {
+      display: block;
+      padding: 8px;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .submenu a:hover {
+      background-color: #f5a2f1;
+    }
+
+    /* Container Section */
+    .container {
+      max-width: 500px;
+      margin: 20px auto;
+      padding: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      background-color: #f5a2f1;
+    }
+
+    .container h2 {
+      font-size: 20px;
+      color: #444;
+      margin-bottom: 10px;
+    }
+
+    /* Section Headers for "Choose your lotion" and "Choose the lash size" */
+    .preset-section {
+      margin-top: 15px;
+      padding: 10px;
+      background-color: #fff; /* Matches timer section background */
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Preset Buttons Styling */
+    .preset-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+
+    .preset-buttons button {
+      padding: 8px 15px;
+      font-size: 14px;
+      border: 1px solid pink;
+      background-color: white;
+      color: black;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .preset-buttons button:hover {
+      background-color: rgb(255, 153, 204);
+    }
+
+    .preset-buttons button.active {
+      background-color: rgb(255, 102, 153); /* Consistent active color */
+      color: white;
+    }
+
+    /* Timer App Section Styling */
+    .timerApp {
+      margin-top: 15px;
+      padding: 15px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .timerApp label {
+      font-size: 14px;
+      margin: 8px 0;
+      display: block;
+    }
+
+    .timerApp input {
+      width: 50px;
+      padding: 5px;
+      font-size: 14px;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    /* Timer Action Buttons (Start, Pause, Stop) */
+    .timerApp button {
+      margin: 8px 5px;
+      padding: 8px 12px;
+      font-size: 14px;
+      border: 1px solid pink;
+      background-color: white;
+      color: black;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .timerApp button:hover {
+      background-color: rgb(255, 153, 204);
+      color: white;
+    }
+
+    .timerApp button.active {
+      background-color: rgb(255, 102, 153); /* Matches lifting button active style */
+      color: white;
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Lash Lift HQ Timer</h1>
+    <div class="menu-btn" onclick="toggleMenu()">Menu</div>
+    <div class="submenu" id="submenu">
+      <a href="YOUR_PAGE_URL_HERE_1">Lash Lift Steps</a> <!-- Placeholder URL for Begin Lash Lift -->
+      <a href="https://lashlifthq.tiiny.site/" id="timerMenuLink">Timer</a> <!-- Placeholder URL for Timer -->
+      <a href="YOUR_PAGE_URL_HERE_3">Shields Tips</a> <!-- Placeholder URL for Shields -->
+      <a href="YOUR_PAGE_URL_HERE_4">Photo Tips</a> <!-- Placeholder URL for Photo -->
+    </div>
+  </header>
+
+  <!-- Timer Page Content -->
+  <div class="container" id="timerPage">
+    <div class="preset-section">
+      <h2>Choose your lotion</h2>
+      <div class="preset-buttons">
+        <button id="liftingButton" class="preset-btn">Lifting</button>
+        <button id="settingButton" class="preset-btn">Setting</button>
+      </div>
+    </div>
+
+    <div class="preset-section">
+      <h2>Choose your lash size</h2>
+      <div class="preset-buttons">
+        <button id="thickButton" class="preset-btn">Thick</button>
+        <button id="mediumButton" class="preset-btn">Medium</button>
+        <button id="thinButton" class="preset-btn">Thin</button>
+      </div>
+    </div>
+
+    <div class="timerApp" id="leftEyeTimer">
+      <h2>Left Eye Timer</h2>
+      <label>Minutes: <input type="number" id="leftEyeMinutes" value="4" min="0" max="59"></label>
+      <label>Seconds: <input type="number" id="leftEyeSeconds" value="0" min="0" max="59"></label>
+      <button id="startLeft">Start</button>
+      <button id="pauseLeft" disabled>Pause</button>
+      <button id="stopLeft" disabled>Stop</button>
+    </div>
+
+    <div class="timerApp" id="rightEyeTimer">
+      <h2>Right Eye Timer</h2>
+      <label>Minutes: <input type="number" id="rightEyeMinutes" value="4" min="0" max="59"></label>
+      <label>Seconds: <input type="number" id="rightEyeSeconds" value="0" min="0" max="59"></label>
+      <button id="startRight">Start</button>
+      <button id="pauseRight" disabled>Pause</button>
+      <button id="stopRight" disabled>Stop</button>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2024 Lash Lift HQ. All rights reserved.
+  </footer>
+
+  <!-- New working audio file -->
+  <audio id="timerSound" src="https://www.mobiles24.co/downloads/d/tr9xXzGW47" preload="auto"></audio>
+
+  <script>
+    function toggleMenu() {
+      const submenu = document.getElementById('submenu');
+      submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // Timer logic for both eyes
+    let leftEyeTimer, rightEyeTimer;
+    let leftEyeMinutes = 4, leftEyeSeconds = 0;
+    let rightEyeMinutes = 4, rightEyeSeconds = 0;
+    let initialLeftEyeMinutes = 4, initialLeftEyeSeconds = 0;
+    let initialRightEyeMinutes = 4, initialRightEyeSeconds = 0;
+
+    // Function to update the timer values (without displaying the timer)
+    function updateTimerValues() {
+      document.getElementById('leftEyeMinutes').value = leftEyeMinutes;
+      document.getElementById('leftEyeSeconds').value = leftEyeSeconds;
+      document.getElementById('rightEyeMinutes').value = rightEyeMinutes;
+      document.getElementById('rightEyeSeconds').value = rightEyeSeconds;
+    }
+
+    // Timer countdown function
+    function countdownTimer(timer, minutes, seconds, isLeft) {
+      if (seconds === 0 && minutes === 0) {
+        clearInterval(timer);
+        document.getElementById("timerSound").play(); // Play ringtone when timer ends
+        return;
+      }
+
+      seconds--;
+      if (seconds < 0) {
+        seconds = 59;
+        minutes--;
+      }
+
+      if (isLeft) {
+        leftEyeMinutes = minutes;
+        leftEyeSeconds = seconds;
+      } else {
+        rightEyeMinutes = minutes;
+        rightEyeSeconds = seconds;
+      }
+      updateTimerValues();
+    }
+
+    // Timer Start Logic
+    document.getElementById('startLeft').addEventListener('click', () => {
+      leftEyeMinutes = parseInt(document.getElementById('leftEyeMinutes').value);
+      leftEyeSeconds = parseInt(document.getElementById('leftEyeSeconds').value);
+      leftEyeTimer = setInterval(() => countdownTimer(leftEyeTimer, leftEyeMinutes, leftEyeSeconds, true), 1000);
+      document.getElementById('pauseLeft').disabled = false;
+      document.getElementById('stopLeft').disabled = false;
+      document.getElementById('startLeft').disabled = true;
+    });
+
+    document.getElementById('startRight').addEventListener('click', () => {
+      rightEyeMinutes = parseInt(document.getElementById('rightEyeMinutes').value);
+      rightEyeSeconds = parseInt(document.getElementById('rightEyeSeconds').value);
+      rightEyeTimer = setInterval(() => countdownTimer(rightEyeTimer, rightEyeMinutes, rightEyeSeconds, false), 1000);
+      document.getElementById('pauseRight').disabled = false;
+      document.getElementById('stopRight').disabled = false;
+      document.getElementById('startRight').disabled = true;
+    });
+
+    // Stop and Reset Logic
+    document.getElementById('stopLeft').addEventListener('click', () => {
+      clearInterval(leftEyeTimer);
+      leftEyeMinutes = initialLeftEyeMinutes;
+      leftEyeSeconds = initialLeftEyeSeconds;
+      updateTimerValues();
+      document.getElementById('startLeft').disabled = false;
+      document.getElementById('pauseLeft').disabled = true;
+      document.getElementById('stopLeft').disabled = true;
+    });
+
+    document.getElementById('stopRight').addEventListener('click', () => {
+      clearInterval(rightEyeTimer);
+      rightEyeMinutes = initialRightEyeMinutes;
+      rightEyeSeconds = initialRightEyeSeconds;
+      updateTimerValues();
+      document.getElementById('startRight').disabled = false;
+      document.getElementById('pauseRight').disabled = true;
+      document.getElementById('stopRight').disabled = true;
+    });
+
+    // Button interactions for setting and preset buttons
+    document.getElementById('liftingButton').addEventListener('click', () => {
+      document.getElementById('liftingButton').classList.add('active');
+      document.getElementById('settingButton').classList.remove('active');
+      leftEyeSeconds = 0;
+      rightEyeSeconds = 0;
+      updateTimerValues();
+    });
+
+    document.getElementById('settingButton').addEventListener('click', () => {
+      document.getElementById('settingButton').classList.add('active');
+      document.getElementById('liftingButton').classList.remove('active');
+      leftEyeSeconds = 30;
+      rightEyeSeconds = 30;
+      updateTimerValues();
+    });
+
+    document.getElementById('thickButton').addEventListener('click', () => {
+      document.getElementById('thickButton').classList.add('active');
+      document.getElementById('mediumButton').classList.remove('active');
+      document.getElementById('thinButton').classList.remove('active');
+      leftEyeMinutes = 5;
+      rightEyeMinutes = 5;
+      updateTimerValues();
+    });
+
+    document.getElementById('mediumButton').addEventListener('click', () => {
+      document.getElementById('mediumButton').classList.add('active');
+      document.getElementById('thickButton').classList.remove('active');
+      document.getElementById('thinButton').classList.remove('active');
+      leftEyeMinutes = 4;
+      rightEyeMinutes = 4;
+      updateTimerValues();
+    });
+
+    document.getElementById('thinButton').addEventListener('click', () => {
+      document.getElementById('thinButton').classList.add('active');
+      document.getElementById('mediumButton').classList.remove('active');
+      document.getElementById('thickButton').classList.remove('active');
+      leftEyeMinutes = 3;
+      rightEyeMinutes = 3;
+      updateTimerValues();
+    });
+  </script>
+</body>
+</html>
